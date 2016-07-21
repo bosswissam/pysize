@@ -5,6 +5,7 @@ Use to quickly measure the size of your python objects. Supports:
 * No double-counting for repeated objects in a collection
 
 # Examples:
+```python
 >>> class Test(object):
 >>>    pass
 >>> from pysize import get_size
@@ -18,4 +19,4 @@ Use to quickly measure the size of your python objects. Supports:
 >>> get_size(z)
 899
 >>> get_size(y)
-80971
+80971```
