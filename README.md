@@ -3,6 +3,7 @@
 Use to quickly measure the size of your python objects. Supports:
 * Measuring the size of self-referential objects
 * No double-counting for repeated objects in a collection
+* Python v2/v3
 
 # Examples:
 ```python
