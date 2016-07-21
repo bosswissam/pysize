@@ -35,6 +35,10 @@ class TestPysize(unittest.TestCase):
         obj2 = Test()
         self.assertEqual(pysize.get_size(obj), pysize.get_size(obj.prop))
 
+    def test_strings_pv3_compat(self):
+        test_string = "abc"
+        self.assertEqual(sys.getsizeof(test_string), pysize.get_size(test_string))
+
 
 if __name__ == '__main__':
     unittest.main()
