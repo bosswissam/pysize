@@ -10,6 +10,4 @@ def get_size(obj):
         size += get_size(obj.__dict__)
     elif hasattr(obj, '__iter__'):
         size += sum([get_size(i) for i in obj])
-    else:
-        size += sys.getsizeof(obj)
     return size
