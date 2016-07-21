@@ -2,7 +2,7 @@ import sys
 
 def get_size(obj):
     """Recursively finds size of objects"""
-    size = 0
+    size = sys.getsizeof(obj)
     if isinstance(obj, dict):
         size += sum([get_size(v) for v in obj.values()])
         size += sum([get_size(k) for k in obj.keys()])
