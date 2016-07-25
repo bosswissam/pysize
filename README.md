@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/bosswissam/pysize.svg?branch=master)](https://travis-ci.org/bosswissam/pysize)
+
 # pysize
 
 Use to quickly measure the size of your python objects. Supports:
