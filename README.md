@@ -22,3 +22,25 @@ Use to quickly measure the size of your python objects. Supports:
 >>> get_size(y)
 80971
 ```
+
+To measure the size of `properties`, call `pysize.get_size` on the full list
+of the object's members minus overhead and unwanted memberes:
+```python
+import pysize
+class Ping(object):
+    @property
+    def ping(self):
+        return 'pong'
+
+class B(Ping):
+    @property
+    def marko(self):
+        return 'polo'
+
+obj = B()
+
+to_measure = [getattr(obj, prop) for prop in dir(obj)\
+              if prop not in dir(Ping)] # Exclude inherited attrs
+empty_list_size = pysize.get_size([])
+pysize.get_size(to_measure) - empty_list_size - 8 * len(to_measure)
+```
