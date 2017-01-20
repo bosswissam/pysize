@@ -1,7 +1,7 @@
 import sys
 
 def get_size(obj, seen=None):
-    """Recursively finds size of objects"""
+    """Recursively finds size of objects in bytes"""
     size = sys.getsizeof(obj)
     if seen is None:
         seen = set()
