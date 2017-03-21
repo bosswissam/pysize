@@ -1,5 +1,6 @@
 import sys
 import unittest
+from collections import namedtuple
 
 import pysize
 
@@ -38,6 +39,53 @@ class TestPysize(unittest.TestCase):
     def test_strings_pv3_compat(self):
         test_string = "abc"
         self.assertEqual(sys.getsizeof(test_string), pysize.get_size(test_string))
+
+    def test_custom_class(self):
+
+        class Point(object):
+            def __init__(self, x, y):
+                self.x = x
+                self.y = y
+
+        point = Point(3, 4)
+        self.assertEqual(pysize.get_size(point),
+                         sys.getsizeof(point) +
+                         sys.getsizeof(point.__dict__) +
+                         sys.getsizeof('x') +
+                         sys.getsizeof(3) +
+                         sys.getsizeof('y') +
+                         sys.getsizeof(4))
+
+    def test_namedtuple(self):
+        Point = namedtuple('Point', ['x', 'y'])
+        point = Point(3, 4)
+        self.assertEqual(pysize.get_size(point),
+                         sys.getsizeof(point) +
+                         sys.getsizeof(3) +
+                         sys.getsizeof(4))
+
+    def test_subclass_of_namedtuple(self):
+
+        class Point(namedtuple('Point', ['x', 'y'])):
+            pass
+
+        point = Point(3, 4)
+        self.assertEqual(pysize.get_size(point),
+                         sys.getsizeof(point) +
+                         sys.getsizeof(point.__dict__) +
+                         sys.getsizeof(3) +
+                         sys.getsizeof(4))
+
+    def test_subclass_of_namedtuple_with_slots(self):
+
+        class Point(namedtuple('Point', ['x', 'y'])):
+            __slots__ = ()
+
+        point = Point(3, 4)
+        self.assertEqual(pysize.get_size(point),
+                         sys.getsizeof(point) +
+                         sys.getsizeof(3) +
+                         sys.getsizeof(4))
 
 
 if __name__ == '__main__':
