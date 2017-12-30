@@ -46,3 +46,6 @@ to_measure = [getattr(obj, prop) for prop in dir(obj)\
 empty_list_size = pysize.get_size([])
 pysize.get_size(to_measure) - empty_list_size - 8 * len(to_measure)
 ```
+
+# License
+[MIT](LICENSE.txt)
