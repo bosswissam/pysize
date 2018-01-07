@@ -1,6 +1,6 @@
 import sys
 import unittest
-from collections import namedtuple, OrderedDict
+from collections import namedtuple
 
 import pysize
 
@@ -86,14 +86,6 @@ class TestPysize(unittest.TestCase):
                          sys.getsizeof(point) +
                          sys.getsizeof(3) +
                          sys.getsizeof(4))
-
-    def test_ordered_dictionary_max_recursion(self):
-        ordered_dict = OrderedDict()
-
-        for i in xrange(1000):
-            ordered_dict[i] = i
-
-        self.assertEqual(pysize.get_size(ordered_dict), 219389)
 
 
 if __name__ == '__main__':
