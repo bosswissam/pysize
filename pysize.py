@@ -1,27 +1,27 @@
 import sys
 import inspect
 
-def get_size(obj, seen=None):
+def get_size(obj):
     """Recursively finds size of objects in bytes"""
-    size = sys.getsizeof(obj)
-    if seen is None:
-        seen = set()
-    obj_id = id(obj)
-    if obj_id in seen:
-        return 0
-    # Important mark as seen *before* entering recursion to gracefully handle
-    # self-referential objects
-    seen.add(obj_id)
-    if hasattr(obj, '__dict__'):
-        for cls in obj.__class__.__mro__:
-            if '__dict__' in cls.__dict__:
-                d = cls.__dict__['__dict__']
-                if inspect.isgetsetdescriptor(d) or inspect.ismemberdescriptor(d):
-                    size += get_size(obj.__dict__, seen)
-                break
-    if isinstance(obj, dict):
-        size += sum((get_size(v, seen) for v in obj.values()))
-        size += sum((get_size(k, seen) for k in obj.keys()))
-    elif hasattr(obj, '__iter__') and not isinstance(obj, (str, bytes, bytearray)):
-        size += sum((get_size(i, seen) for i in obj))
+    size, queue, seen = 0, [obj], set()
+    while queue:
+        obj = queue.pop()
+        obj_id = id(obj)
+        if obj_id not in seen:
+            size += sys.getsizeof(obj)
+            seen.add(obj_id)
+            if hasattr(obj, '__dict__'):
+                for cls in obj.__class__.__mro__:
+                    if '__dict__' in cls.__dict__:
+                        d = cls.__dict__['__dict__']
+                        if inspect.isgetsetdescriptor(d) or inspect.ismemberdescriptor(d):
+                            queue.append(obj.__dict__)
+                            queue.extend(obj.__dict__.keys())
+                            queue.extend(obj.__dict__.values())
+                        break
+            if isinstance(obj, dict):
+                queue.extend(obj.values())
+                queue.extend(obj.keys())
+            elif hasattr(obj, '__iter__') and not isinstance(obj, (str, bytes, bytearray)):
+                queue.extend(obj)
     return size
