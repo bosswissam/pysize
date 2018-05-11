@@ -86,6 +86,24 @@ class TestPysize(unittest.TestCase):
                          sys.getsizeof(point) +
                          sys.getsizeof(3) +
                          sys.getsizeof(4))
+        
+    def slots_test(self):
+        class slots1:
+            __slots__ = ["number1"]
+            def __init__(self, number1):
+                self.number1 = number1
+                
+        class slots2:
+            __slots__ = ["number1", "number2"]
+            def __init__(self, number1, number2):
+                self.number1 = number1
+                self.number2 = number2
+            
+        s1 = slots1(3)
+        s2 = slots2(4, 5)            
+        
+        # 64 for the class, 28 per integer
+        self.assertEqual(s2, s1 + 28)
 
 
 if __name__ == '__main__':
