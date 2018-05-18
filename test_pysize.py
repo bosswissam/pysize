@@ -112,7 +112,7 @@ class TestPysize(unittest.TestCase):
 
         version_addition = 0
 
-        if sys.version_info.major == 3:
+        if hasattr(sys.version_info, 'major') and sys.version_info.major == 3:
             version_addition = 4
 
         # base 40 for the class, 28 per integer, +8 per element
