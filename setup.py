@@ -1,9 +1,12 @@
 import io
 import os
 
-from setuptools import setup
+from setuptools import find_packages, setup
 
+NAME = 'pysize'
 DESCRIPTION = "Use to quickly measure the size of your python objects."
+VERSION = None
+
 here = os.path.abspath(os.path.dirname(__file__))
 
 try:
@@ -12,12 +15,18 @@ try:
 except FileNotFoundError:
     long_description = DESCRIPTION
 
+about = {}
+if not VERSION:
+    with open(os.path.join(here, NAME, '__version__.py')) as f:
+        exec(f.read(), about)
+else:
+    about['__version__'] = VERSION
+
 setup(
-    name="pysize",
-    version="1.0",
+    name=NAME,
+    version=about['__version__'],
     description=DESCRIPTION,
-    py_modules=["pysize"],
-    package_dir={"": "src"},
+    packages=find_packages(exclude=('tests',)),
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[
