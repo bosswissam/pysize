@@ -1,12 +1,21 @@
+import io
+import os
+
 from setuptools import setup
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+DESCRIPTION = "Use to quickly measure the size of your python objects."
+here = os.path.abspath(os.path.dirname(__file__))
+
+try:
+    with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
+        long_description = '\n' + f.read()
+except FileNotFoundError:
+    long_description = DESCRIPTION
 
 setup(
     name="pysize",
     version="1.0",
-    description="Use to quickly measure the size of your python objects.",
+    description=DESCRIPTION,
     py_modules=["pysize"],
     package_dir={"": "src"},
     long_description=long_description,
