@@ -10,10 +10,6 @@ python:
   - "nightly" # currently points to 3.6-dev
 # command to run tests
 script: nosetests
-notifications:
-  email:
-    on_success: never
-    on_failure: always
 deploy:
   provider: pypi
   user: bosswissam
