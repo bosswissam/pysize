@@ -1,19 +1,59 @@
+conditions: v1
+dist: trusty
+sudo: false
 language: python
+
 python:
-  - "2.6"
-  - "2.7"
-  - "3.2"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.5-dev" # 3.5 development branch
-  - "nightly" # currently points to 3.6-dev
-# command to run tests
+- 3.6
+
 script: nosetests
-deploy:
-  provider: pypi
-  user: bosswissam
-  password:
-    secure: 
- on:
-    tags: true
+
+jobs:
+  include:
+  - python: 3.7
+    dist: xenial
+    sudo: true
+
+  - python: 3.5
+    dist: xenial
+    sudo: true
+
+  - python: 3.4
+    dist: xenial
+    sudo: true
+
+  - python: 3.3
+    dist: xenial
+    sudo: true
+
+  - python: 3.2
+    dist: xenial
+    sudo: true
+
+  - python: 2.7
+    dist: xenial
+    sudo: true
+
+  - python: 2.6
+    dist: xenial
+    sudo: true
+
+  - stage: &stage_deploy_name upload new version of python package to PYPI (only for tagged commits)
+    if: tag IS present
+    python: 3.6
+    install: skip
+    script: skip
+    deploy:
+      provider: pypi
+      on:
+        all_branches: true
+        tags: true
+      user: bosswissam
+      password:
+        secure: 
+      distributions: clean --all sdist bdist_wheel
+      skip_cleanup: true
+      skip_upload_docs: true
+
+cache:
+  pip: true
