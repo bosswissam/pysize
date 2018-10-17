@@ -3,7 +3,11 @@
 pysize
 ======
 
-Use to quickly measure the size of your python objects. Supports: \* Measuring the size of self-referential objects \* No double-counting for repeated objects in a collection \* Python v2/v3
+Use to quickly measure the size of your python objects. Supports:
+
+- Measuring the size of self-referential objects 
+- No double-counting for repeated objects in a collection 
+- Python v2/v3
 
 Examples:
 =========
@@ -11,7 +15,8 @@ Examples:
 .. code:: python
 
     >>> class Test(object):
-    >>>    pass
+    ...     pass
+    ... 
     >>> from pysize import get_size
     >>> z = Test()
     >>> get_size(z)
@@ -25,7 +30,9 @@ Examples:
     >>> get_size(y)
     80971
 
-To measure the size of ``properties``, call ``pysize.get_size`` on the full list of the object's members minus overhead and unwanted memberes:
+
+
+To measure the size of ``properties``, call ``pysize.get_size`` on the full list of the object's members minus overhead and unwanted members:
 
 .. code:: python
 
@@ -50,7 +57,7 @@ To measure the size of ``properties``, call ``pysize.get_size`` on the full list
 License
 =======
 
-`MIT <LICENSE.txt>`__
+`MIT <LICENSE.rst>`_
 
 .. |Build Status| image:: https://travis-ci.org/bosswissam/pysize.svg?branch=master
    :target: https://travis-ci.org/bosswissam/pysize

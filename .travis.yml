@@ -1,12 +1,12 @@
-conditions: v1
-dist: trusty
-sudo: false
 language: python
 
 python:
 - 3.6
 
-script: nosetests
+install:
+- pip install pytest==3.9.1
+
+script: pytest
 
 jobs:
   include:
