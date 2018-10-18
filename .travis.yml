@@ -15,28 +15,16 @@ jobs:
     sudo: true
 
   - python: 3.5
-    dist: xenial
-    sudo: true
 
   - python: 3.4
-    dist: xenial
-    sudo: true
 
   - python: 3.3
-    dist: xenial
-    sudo: true
 
   - python: 3.2
-    dist: xenial
-    sudo: true
 
   - python: 2.7
-    dist: xenial
-    sudo: true
 
   - python: 2.6
-    dist: xenial
-    sudo: true
 
   - stage: &stage_deploy_name upload new version of python package to PYPI (only for tagged commits)
     if: tag IS present
