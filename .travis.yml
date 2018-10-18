@@ -3,10 +3,7 @@ language: python
 python:
 - 3.6
 
-install:
-- pip install pytest==3.9.1
-
-script: pytest
+script: nosetests
 
 jobs:
   include:
