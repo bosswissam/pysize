@@ -1,7 +1,7 @@
 |Build Status|
 
 pysize-inspector
-======
+================
 
 Use to quickly measure the size of your python objects. Supports:
 
