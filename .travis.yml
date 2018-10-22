@@ -19,7 +19,7 @@ jobs:
     sudo: true
 
   - stage: &stage_deploy_name upload new version of python package to PYPI (only for tagged commits)
-    name: "Deploy"
+    name: Deploy
     if: tag IS present
     python: 3.6
     install: skip
