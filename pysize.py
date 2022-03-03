@@ -23,8 +23,10 @@ def get_size(obj, seen=None):
         size += sum((get_size(v, seen) for v in obj.values()))
         size += sum((get_size(k, seen) for k in obj.keys()))
     elif hasattr(obj, '__iter__') and not isinstance(obj, (str, bytes, bytearray)):
-        size += sum((get_size(i, seen) for i in obj))
-        
+        try:
+            size += sum((get_size(i, seen) for i in obj))
+        except TypeError:
+            pass
     if hasattr(obj, '__slots__'): # can have __slots__ with __dict__
         size += sum(get_size(getattr(obj, s), seen) for s in obj.__slots__ if hasattr(obj, s))
         
